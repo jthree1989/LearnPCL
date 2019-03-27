@@ -1,0 +1,12 @@
+/repo/src/LearnPCL/UsingPCL/build/CMakeFiles/edit_cache.dir
+/repo/src/LearnPCL/UsingPCL/build/CMakeFiles/rebuild_cache.dir
+/repo/src/LearnPCL/UsingPCL/build/CMakeFiles/load_pointcloud.dir
+/repo/src/LearnPCL/UsingPCL/build/CMakeFiles/point_cloud_compression.dir
+/repo/src/LearnPCL/UsingPCL/build/CMakeFiles/test_opennigrabber.dir
+/repo/src/LearnPCL/UsingPCL/build/CMakeFiles/matrix_transform.dir
+/repo/src/LearnPCL/UsingPCL/build/CMakeFiles/pcd_write_test.dir
+/repo/src/LearnPCL/UsingPCL/build/CMakeFiles/octree_search.dir
+/repo/src/LearnPCL/UsingPCL/build/CMakeFiles/upsampling.dir
+/repo/src/LearnPCL/UsingPCL/build/CMakeFiles/bspline_fitting.dir
+/repo/src/LearnPCL/UsingPCL/build/CMakeFiles/resampling.dir
+/repo/src/LearnPCL/UsingPCL/build/CMakeFiles/concatenate_clouds.dir
