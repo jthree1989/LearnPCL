@@ -118,3 +118,12 @@ set_target_properties(concatenate_clouds
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
 )
 
+add_executable(register_clouds register_clouds.cpp)
+target_link_libraries (register_clouds ${PCL_LIBRARIES})
+set_target_properties(register_clouds
+    PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
+    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
+)
+
