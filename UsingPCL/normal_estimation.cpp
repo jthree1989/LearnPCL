@@ -28,7 +28,7 @@ void EstimateNormal(boost::shared_ptr< PointCloud<T> > source, boost::shared_ptr
 
 	// create an empty kdtree representation, and pass it to the normal estimation object.
 	// its content will be filled inside the object, based on the given input dataset (as no other search surface is given).
-	pcl::search::KdTree<T>::Ptr kdTree(new pcl::search::KdTree<T>());
+	pcl::search::KdTree<PointXYZ>::Ptr kdTree(new pcl::search::KdTree<PointXYZ>());
 	normalEst.setSearchMethod(kdTree);
 
 	// use all neighbors in a sphere of radius 3cm
@@ -52,7 +52,7 @@ void EstimateSubsetNormal(boost::shared_ptr<PointCloud<T>> source,
 
 	// create an empty kdtree representation, and pass it to the normal estimation object.
 	// its content will be filled inside the object, based on the given input dataset (as no other search surface is given).
-	pcl::search::KdTree<T>::Ptr kdTree(new pcl::search::KdTree<T>());
+	pcl::search::KdTree<PointXYZ>::Ptr kdTree(new pcl::search::KdTree<PointXYZ>());
 	normalEst.setSearchMethod(kdTree);
 
 	// use all neighbors in a sphere of radius 3cm

@@ -8,3 +8,5 @@ UsingPCL/bin/concatenate_clouds
 UsingPCL/bin/register_clouds
 
 UsingPCL/\.kdev4/
+
+UsingPCL/bin/incremental_registration

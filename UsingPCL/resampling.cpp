@@ -33,7 +33,6 @@ main (int argc, char** argv)
 
   // Set parameters
   mls.setInputCloud (cloud);
-  mls.setPolynomialFit (true);
   mls.setPolynomialOrder(2);
   mls.setSearchMethod (tree);
   mls.setSearchRadius (0.03);

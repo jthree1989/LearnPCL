@@ -93,6 +93,5 @@ int main(int argc, char** argv)
 			<< " (distance: " << sqrtf(pointRadiusSquaredDistance[i]) << ")" << std::endl;
 	}
 
-	system("pause");
-	return 0;
+	return system("pause");
 }

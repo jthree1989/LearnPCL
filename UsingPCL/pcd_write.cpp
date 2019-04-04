@@ -26,6 +26,6 @@ main(int argc, char** argv)
 
 	for (size_t i = 0; i < cloud.points.size(); ++i)
 		std::cerr << "    " << cloud.points[i].x << " " << cloud.points[i].y << " " << cloud.points[i].z << std::endl;
-	system("pause");
-	return (0);
+
+	return 	system("pause");
 }

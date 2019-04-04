@@ -23,6 +23,7 @@ int main(int argc, char* argv[])
   icp.setInputSource(source);
   icp.setInputTarget(target);
   icp.align(*final);
+  *final += *target;
   cout << "has converged:" << icp.hasConverged() << " score: " << icp.getFitnessScore() << endl;
   cout << icp.getFinalTransformation() << endl;
   // 3. save the final file

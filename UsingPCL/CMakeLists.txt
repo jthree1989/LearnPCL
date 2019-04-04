@@ -1,129 +1,108 @@
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 project(UsingPCL)
+if(${CMAKE_VERSION} VERSION_GREATER "3.12") 
+    cmake_policy(SET CMP0074 NEW)
+endif()
 find_package(PCL 1.8.0 REQUIRED)
-#find_package(Qt5Widgets REQUIRED)
-include_directories(${PCL_INCLUDE_DIRS})
-link_directories(${PCL_LIBRARY_DIRS})
-add_definitions(${PCL_DEFINITIONS})
-SET(CMAKE_CXX_FLAGS "-std=c++11")
-# write to pcd file 
-add_executable(pcd_write_test pcd_write.cpp)
-target_link_libraries(pcd_write_test ${PCL_LIBRARIES})
-set_target_properties(pcd_write_test
-    PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-)
-# transform cloud with a transformation matrix
-add_executable(matrix_transform matrix_transform.cpp)
-target_link_libraries(matrix_transform ${PCL_LIBRARIES})
+if( PCL_FOUND )
+    include_directories(${PCL_INCLUDE_DIRS})
+    link_directories(${PCL_LIBRARY_DIRS})
+    add_definitions(${PCL_DEFINITIONS})
+endif(PCL_FOUND)    
+set(CMAKE_CXX_FLAGS "-std=c++11")
 
-set_target_properties(matrix_transform
-    PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-)
+# define function to build pcl example
+function(build_pcl_example exampleName)
+    add_executable(${exampleName} ${exampleName}.cpp)
+    target_link_libraries(${exampleName} ${PCL_LIBRARIES})
+    set_target_properties(${exampleName}
+        PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
+        LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
+    )
+endfunction(build_pcl_example)
+
+# write to pcd file 
+option(build_pcd_write "Build pcd_write example" OFF)
+if(build_pcd_write)
+    build_pcl_example(pcd_write)
+endif(build_pcd_write)
+
+# transform cloud with a transformation matrix
+option(build_matrix_transform "Build matrix_transform example" OFF)
+if(build_matrix_transform)
+    build_pcl_example(matrix_transform)
+endif(build_matrix_transform)
+
 # normal estimation for cloud
-#add_executable(normal_estimation normal_estimation.cpp)
-#target_link_libraries(normal_estimation ${PCL_LIBRARIES})
-#set_target_properties(normal_estimation
-#	PROPERTIES
-#	ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-#    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-#    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-#)
+option(build_normal_estimation "Build normal_estimation example" OFF)
+if(build_normal_estimation)
+    build_pcl_example(normal_estimation)
+endif(build_normal_estimation)
+
 # load point cloud from pcd file
-add_executable(load_pointcloud load_pointcloud.cpp)
-target_link_libraries(load_pointcloud ${PCL_LIBRARIES})
-set_target_properties(load_pointcloud
-	PROPERTIES
-	ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-)
+option(build_load_pointcloud "Build load_pointcloud example" OFF)
+if(build_load_pointcloud)
+    build_pcl_example(load_pointcloud)
+endif(build_load_pointcloud)
+
 # test OpenNI grabber framework in PCL
-add_executable(test_opennigrabber test_opennigrabber.cpp)
-target_link_libraries(test_opennigrabber ${PCL_LIBRARIES})
-set_target_properties(load_pointcloud
-	PROPERTIES
-	ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-)
+option(build_test_opennigrabber "Build test_opennigrabber example" OFF)
+if(build_test_opennigrabber)
+    build_pcl_example(test_opennigrabber)
+endif(build_test_opennigrabber)
+
 # kdtree search example
-#add_executable(kdtree_search kdtree_search.cpp)
-#target_link_libraries(kdtree_search ${PCL_LIBRARIES})
-#set_target_properties(kdtree_search
-#	PROPERTIES
-#	ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-#    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-#    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-#)
+option(build_kdtree_search "Build kdtree_search example" OFF)
+if(build_kdtree_search)
+    build_pcl_example(kdtree_search)
+endif(build_kdtree_search)
 
 # octree compression example
-add_executable(point_cloud_compression  point_cloud_compression.cpp)
-target_link_libraries(point_cloud_compression ${PCL_LIBRARIES})
-set_target_properties(point_cloud_compression
-	PROPERTIES
-	ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-)
+option(build_point_cloud_compression "Build point_cloud_compression example" OFF)
+if(build_point_cloud_compression)
+    build_pcl_example(point_cloud_compression)
+endif(build_point_cloud_compression)
 
 # octree search example
-add_executable(octree_search octree_search.cpp)
-target_link_libraries(octree_search ${PCL_LIBRARIES})
-set_target_properties(octree_search
-	PROPERTIES
-	ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-)
+option(build_octree_search "Build octree_search example" OFF)
+if(build_octree_search)
+    build_pcl_example(octree_search)
+endif(build_octree_search)
 
-add_executable (bspline_fitting bspline_fitting.cpp)
-target_link_libraries (bspline_fitting ${PCL_LIBRARIES})
-set_target_properties(bspline_fitting
-	PROPERTIES
-	ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-)
+# bspline fitting example 
+option(build_bspline_fitting "Build bspline_fitting example" OFF)
+if(build_bspline_fitting)
+    build_pcl_example(bspline_fitting)
+endif(build_bspline_fitting)
 
-add_executable (resampling resampling.cpp)
-target_link_libraries (resampling ${PCL_LIBRARIES})
-set_target_properties(resampling
-    PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-)
+# resampling example
+option(build_resampling "Build resampling example" OFF)
+if(build_resampling)
+    build_pcl_example(resampling)
+endif(build_resampling)
 
-add_executable (upsampling upsampling.cpp)
-target_link_libraries (upsampling ${PCL_LIBRARIES})
-set_target_properties(upsampling
-    PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-)
+# upsampling example
+option(build_upsampling "Build upsampling example" OFF)
+if(build_upsampling)
+    build_pcl_example(upsampling)
+endif(build_upsampling)
 
-add_executable(concatenate_clouds concatenate_clouds.cpp)
-target_link_libraries (concatenate_clouds ${PCL_LIBRARIES})
-set_target_properties(concatenate_clouds
-    PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-)
+# concatenate clouds example
+option(build_concatenate_clouds "Build concatenate_clouds example" OFF)
+if(build_concatenate_clouds)
+    build_pcl_example(concatenate_clouds)
+endif(build_concatenate_clouds)
 
-add_executable(register_clouds register_clouds.cpp)
-target_link_libraries (register_clouds ${PCL_LIBRARIES})
-set_target_properties(register_clouds
-    PROPERTIES
-    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin"
-)
+# register clouds example
+option(build_register_clouds "Build register_clouds example" OFF)
+if(build_register_clouds)
+    build_pcl_example(register_clouds)
+endif(build_register_clouds)
 
+# pairwise incremental registration example
+option(build_incremental_registration "Build incremental_registration example" ON)
+if(build_incremental_registration)
+    build_pcl_example(incremental_registration)
+endif(build_incremental_registration)

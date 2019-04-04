@@ -72,6 +72,6 @@ int main(int argc, char** argv)
 				 << " " << cloud->points[pointIdxRadiusSearch[i]].z
 				 << " (distance: " << sqrtf(pointRadiusSquaredDistance[i]) << ")" << endl;
 	}
-	system("pause");
-	return 0;
+	
+	return system("pause");
 }
